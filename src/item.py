@@ -1,3 +1,7 @@
+from csv import DictReader
+import os
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -13,9 +17,21 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
+        self.all.append(self)
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, new_name):
+        if len(new_name) < 11:
+            self.__name = new_name
+        else:
+            print("Error length name more 10 characters")
 
     def calculate_total_price(self) -> float:
         """
@@ -30,4 +46,25 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.price * self.pay_rate
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        f_path = "C:/Users/gtsoktoeva001/PycharmProjects/electronics/electronics-shop-project/src/items.csv"
+
+        try:
+            with open(f_path) as csvfile:
+                reader = DictReader(csvfile)
+                for line in reader:
+                    #print(cls,line)
+                    cls(line["name"], line["price"], line["quantity"])
+
+        except IOError as e:
+            print(u'не удалось открыть файл')
+
+    @staticmethod
+    def string_to_number(string):
+
+        if string.isdigit():
+            return int(string)
+        return int(float(string))
 

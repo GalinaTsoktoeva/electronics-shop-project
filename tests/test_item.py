@@ -1,5 +1,5 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
-from electronics_shop.src.item import Item
+from src.item import Item
 
 
 def test_item():
@@ -18,3 +18,14 @@ def test_apply_discount():
     ex_item.pay_rate = 0.8
     ex_item.apply_discount()
     assert ex_item.price == 16_000
+
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5
