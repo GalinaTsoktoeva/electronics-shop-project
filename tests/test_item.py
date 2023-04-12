@@ -30,6 +30,14 @@ def test_string_to_number():
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('5.5') == 5
 
+def test_repr():
+    item1 = Item("Тетрис", 1000, 30)
+    assert repr(item1) == "Item('Тетрис', 1000, 30)"
+
+
+def test_str():
+    item1 = Item("xbox", 40_000, 30)
+    assert str(item1) == 'xbox'
 
 def test_setter():
     item = Item("Game", 2, 6)

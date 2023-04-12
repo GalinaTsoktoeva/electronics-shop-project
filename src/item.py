@@ -22,6 +22,13 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f"{self.name}"
+
     @property
     def name(self):
         return self.__name
@@ -31,7 +38,7 @@ class Item:
         if len(new_name) < 11:
             self.__name = new_name
         else:
-            print("Error length name more 10 characters")
+            raise Exception("Длина наименования товара превышает 10 символов")
 
     def calculate_total_price(self) -> float:
         """
@@ -49,7 +56,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        f_path = "C:/Users/gtsoktoeva001/PycharmProjects/electronics/electronics-shop-project/src/items.csv"
+        f_path = "../src/items.csv"
 
         try:
             with open(f_path) as csvfile:
