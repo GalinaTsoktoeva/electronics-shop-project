@@ -21,6 +21,7 @@ def test_apply_discount():
 
 
 def test_instantiate_from_csv():
+    Item.all = []
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
 
