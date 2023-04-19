@@ -22,12 +22,16 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
-
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
 
     def __str__(self):
         return f"{self.name}"
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        raise Exception
 
     @property
     def name(self):
@@ -56,13 +60,15 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """
+        Считывает файл и создает экземпляры класса Item
+        """
         f_path = "../src/items.csv"
 
         try:
             with open(f_path) as csvfile:
                 reader = DictReader(csvfile)
                 for line in reader:
-                    #print(cls,line)
                     cls(line["name"], line["price"], line["quantity"])
 
         except IOError as e:
@@ -70,7 +76,9 @@ class Item:
 
     @staticmethod
     def string_to_number(string):
-
+        """
+        Переводит строку в целочисленное значение
+        """
         if string.isdigit():
             return int(string)
         return int(float(string))
