@@ -1,4 +1,5 @@
 from csv import DictReader
+from exception_item import InstantiateCSVError
 import os
 
 
@@ -69,11 +70,15 @@ class Item:
         try:
             with open(f_path) as csvfile:
                 reader = DictReader(csvfile)
+
+                if len(reader.fieldnames) < 3:
+                    raise InstantiateCSVError
+
                 for line in reader:
                     cls(line["name"], line["price"], line["quantity"])
 
-        except IOError as e:
-            print(u'не удалось открыть файл')
+        except FileNotFoundError as e:
+            print(f'Отсутствует файл item.csv')
 
     @staticmethod
     def string_to_number(string):

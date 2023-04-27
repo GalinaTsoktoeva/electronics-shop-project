@@ -2,6 +2,7 @@ import pytest
 from src.item import Item
 from src.phone import Phone
 from src.keyboard import KeyBoard
+from src.exception_item import InstantiateCSVError
 
 
 @pytest.fixture()
@@ -18,3 +19,7 @@ def some_phone():
 def some_keyboard():
     new_keyboard = KeyBoard('Dark Project KD87A', 9600, 5)
     return new_keyboard
+
+@pytest.fixture()
+def some_exeption():
+    return InstantiateCSVError()
