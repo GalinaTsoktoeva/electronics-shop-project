@@ -25,6 +25,8 @@ class MixinLang:
         elif self.language == "RU":
             self.language = self.Lanquage
 
+        return self
+
 
 
 class KeyBoard(Item, MixinLang):
